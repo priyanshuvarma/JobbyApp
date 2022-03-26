@@ -1,0 +1,27 @@
+.profile-filter-job-container {
+  background-color: #000000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.profile-bg {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
+  background-size: cover;
+  height: 30vh;
+  width: 20%;
+  border-top-right-radius: 32px;
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.hr-line {
+  width: 20%;
+  margin: 0;
+}
+.filter-heading {
+  color: #ffffff;
+}
