@@ -1,0 +1,74 @@
+.top-card-bg {
+  background-color: #2c364c;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 12px;
+}
+
+.top-part-card {
+  display: flex;
+  align-items: center;
+}
+.company-logo {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+}
+.title {
+  color: #ffffff;
+  margin: 0;
+}
+.rating-container {
+  display: flex;
+  align-items: center;
+}
+.star-icon {
+  color: #ffffff;
+}
+.rating {
+  color: #ffffff;
+}
+.location-package-container {
+  display: flex;
+  justify-content: space-between;
+}
+.location-internship-container {
+  display: flex;
+}
+.location-container {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+.location-icon {
+  color: #ffffff;
+}
+.location {
+  color: #ffffff;
+}
+.internship-container {
+  display: flex;
+  align-items: center;
+}
+.internship-icon {
+  color: #ffffff;
+}
+.internship {
+  color: #ffffff;
+}
+.package {
+  color: #ffffff;
+}
+.hr-line {
+  width: 90%;
+  margin: 0;
+  height: 1px;
+}
+.desc-container {
+}
+.desc-heading {
+  color: #ffffff;
+}
+.description {
+  color: #ffffff;
+}

@@ -1,9 +1,24 @@
 import './index.css'
 
 const FilterGroup = props => {
-  const {employmentTypesList, salaryRangesList} = props
+  const {name, id, changeEmpType} = props
 
-  return <h1 className="filter-heading">Type of Employment</h1>
+  const onClickAddOrRemoveCheckbox = () => {
+    changeEmpType(id)
+  }
+
+  return (
+    <li>
+      <input
+        onChange={onClickAddOrRemoveCheckbox}
+        type="checkbox"
+        className="checkbox"
+        name={name}
+        value={name}
+      />
+      <span className="emp-type"> {name}</span>
+    </li>
+  )
 }
 
 export default FilterGroup

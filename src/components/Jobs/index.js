@@ -5,6 +5,8 @@ import {BsSearch} from 'react-icons/bs'
 import Header from '../Header'
 import AllJobsSection from '../AllJobsSection'
 import FilterGroup from '../FilterGroup'
+import SalaryRange from '../SalaryRange'
+import NoJobView from '../NoJobView'
 
 import Profile from '../Profile'
 
@@ -67,8 +69,8 @@ class Jobs extends Component {
     profileApiStatus: profileApiStatusConstants.initial,
     jobsList: [],
     jobsApiStatus: jobsApiStatusConstants.initial,
-    activeEmployementType: ['FREELANCE', 'INTERNSHIP'],
-    activeSalaryRange: '4000000',
+    activeEmployementType: [],
+    activeSalaryRange: '',
     searchInput: '',
   }
 
@@ -93,8 +95,6 @@ class Jobs extends Component {
     const response = await fetch(apiUrl, options)
     if (response.ok) {
       const fetchedData = await response.json()
-      console.log(fetchedData)
-
       const updatedData = {
         name: fetchedData.profile_details.name,
         profileImage: fetchedData.profile_details.profile_image_url,
@@ -118,8 +118,7 @@ class Jobs extends Component {
     })
     const jwtToken = Cookies.get('jwt_token')
     const {activeEmployementType, activeSalaryRange, searchInput} = this.state
-    activeEmployementType.forEach(eachType=>(
-       const apiUrl =  `https://apis.ccbp.in/jobs?employment_type=${eachType}&minimum_package=${activeSalaryRange}&search=${searchInput}`
+    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${activeEmployementType.join()}&minimum_package=${activeSalaryRange}&search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -139,17 +138,10 @@ class Jobs extends Component {
         rating: product.rating,
         title: product.title,
       }))
-
-      const {jobsList}=this.state
-      const updatedJobsList=[...jobsList,updatedData]
-      this.setState({jobsList:updatedJobsList,jobsApiStatus: jobsApiStatusConstants.success})
-
-    ))
-
-
-
-      
-      console.log(updatedData)
+      this.setState({
+        jobsList: updatedData,
+        jobsApiStatus: jobsApiStatusConstants.success,
+      })
     } else {
       this.setState({
         jobsApiStatus: jobsApiStatusConstants.failure,
@@ -174,27 +166,15 @@ class Jobs extends Component {
   }
 
   onEnterSearchInput = event => {
-    if (event.key === 'Enter') {
-      this.getJobsList()
-    }
+    this.getJobsList()
   }
 
   renderAllJobsView = () => {
     const {searchInput, jobsList} = this.state
-
-    const {
-      companyLogoUrl,
-      employmentType,
-      id,
-      jobDescription,
-      location,
-      packagePerAnnum,
-      rating,
-      title,
-    } = jobsList
+    const lengthOfList = jobsList.length
 
     return (
-      <div>
+      <div className="jobs-card-section">
         <div className="search-input-container">
           <input
             value={searchInput}
@@ -202,17 +182,33 @@ class Jobs extends Component {
             className="search-input"
             placeholder="Search"
             onChange={this.onChangeSearchInput}
-            onKeyDown={this.onEnterSearchInput}
           />
-          <BsSearch className="search-icon" />
+          <button
+            onClick={this.onEnterSearchInput}
+            className="search-button"
+            testid="searchButton"
+          >
+            <BsSearch className="search-icon" />
+          </button>
         </div>
+        {lengthOfList !== 0 ? (
+          jobsList.map(each => (
+            <ul>
+              <AllJobsSection key={each.key} jobDetail={each} />
+            </ul>
+          ))
+        ) : (
+          <NoJobView />
+        )}
       </div>
     )
   }
 
   profileFailureView = () => (
     <div className="products-error-view-container">
-      <h1>profile failure</h1>
+      <button onClick={this.renderProfileDetailsView} className="retry-button">
+        Retry
+      </button>
     </div>
   )
 
@@ -220,15 +216,18 @@ class Jobs extends Component {
     <div className="products-error-view-container">
       <img
         src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
-        alt="products failure"
+        alt="failure view"
         className="products-failure-img"
       />
       <h1 className="product-failure-heading-text">
         Oops! Something Went Wrong
       </h1>
       <p className="products-failure-description">
-        We are having some trouble processing your request. Please try again.
+        We cannot seem to find the page you are looking for.
       </p>
+      <button onClick={this.getJobsList} className="retry-button">
+        Retry
+      </button>
     </div>
   )
 
@@ -268,20 +267,59 @@ class Jobs extends Component {
     }
   }
 
+  changeEmpType = id => {
+    const {activeEmployementType} = this.state
+    if (activeEmployementType.toString().includes(id) === false) {
+      const updatedEmpType = [...activeEmployementType, id]
+      this.setState({activeEmployementType: updatedEmpType}, this.getJobsList)
+    } else {
+      const myIndex = activeEmployementType.indexOf(id)
+      const toDeleteEmpType = activeEmployementType.splice(myIndex, 1)
+      const updatedEmpType = activeEmployementType.filter(
+        each => each !== toDeleteEmpType,
+      )
+      this.setState({activeEmployementType: updatedEmpType}, this.getJobsList)
+    }
+  }
+
+  changeSalaryRange = id => {
+    this.setState({activeSalaryRange: id}, this.getJobsList)
+  }
+
   render() {
+    const {searchInput, activeEmployementType, activeSalaryRange} = this.state
+
     return (
       <>
         <Header />
-        <div className="profile-filter-job-container">
-          {this.renderProfile()}
-          <hr className="hr-line" />>
-          <div>
-            <FilterGroup
-              employmentTypesList={employmentTypesList}
-              salaryRangesList={salaryRangesList}
-            />
+        <div className="profile-job-card-container">
+          <div className="profile-filter-job-container">
+            {this.renderProfile()}
+            <hr className="hr-line" />
+            <h1 className="type-of-emp-heading">Type of Employment</h1>
+            <ul>
+              {employmentTypesList.map(eachType => (
+                <FilterGroup
+                  key={eachType.employmentTypeId}
+                  id={eachType.employmentTypeId}
+                  name={eachType.label}
+                  changeEmpType={this.changeEmpType}
+                />
+              ))}
+            </ul>
+            <hr className="hr-line" />
+            <h1 className="type-of-emp-heading">Salary Range</h1>
+            <ul>
+              {salaryRangesList.map(eachRange => (
+                <SalaryRange
+                  key={eachRange.salaryRangeId}
+                  id={eachRange.salaryRangeId}
+                  salary={eachRange.label}
+                  changeSalaryRange={this.changeSalaryRange}
+                />
+              ))}
+            </ul>
           </div>
-          <AllJobsSection />
           {this.renderAllJobsSection()}
         </div>
       </>

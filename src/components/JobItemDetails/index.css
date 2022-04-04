@@ -1,0 +1,58 @@
+.job-item-details-container {
+  background-color: black;
+  padding: 50px;
+  margin: 0;
+}
+
+.desc-visit-container {
+  display: flex;
+  justify-content: space-between;
+}
+.visit-container {
+  display: flex;
+  align-items: center;
+}
+.visit {
+  color: #4f46e5;
+  margin-right: 10px;
+  font-size: 24px;
+}
+.box-arrow {
+  color: #ffffff;
+  font-size: 24px;
+}
+.skills {
+  color: #ffffff;
+}
+.skills-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-left: 0px;
+}
+
+.life-heading {
+  color: #ffffff;
+}
+.life-desc-image-container {
+  display: flex;
+}
+.life-desc {
+  color: #ffffff;
+}
+.life-desc-image {
+}
+.similar-heading {
+  color: #ffffff;
+}
+.similar-jobs-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+.retry-button {
+  color: #ffffff;
+  background-color: #4f46e5;
+}
