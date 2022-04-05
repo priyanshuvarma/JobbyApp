@@ -4,12 +4,9 @@ import Cookies from 'js-cookie'
 import {BsSearch} from 'react-icons/bs'
 import Header from '../Header'
 import AllJobsSection from '../AllJobsSection'
-import FilterGroup from '../FilterGroup'
-import SalaryRange from '../SalaryRange'
+import EmploymentTypeItem from '../EmploymentTypeItem'
+import SalaryRangeItem from '../SalaryRangeItem'
 import NoJobView from '../NoJobView'
-
-import Profile from '../Profile'
-
 import './index.css'
 
 const employmentTypesList = [
@@ -299,7 +296,7 @@ class Jobs extends Component {
             <h1 className="type-of-emp-heading">Type of Employment</h1>
             <ul>
               {employmentTypesList.map(eachType => (
-                <FilterGroup
+                <EmploymentTypeItem
                   key={eachType.employmentTypeId}
                   id={eachType.employmentTypeId}
                   name={eachType.label}
@@ -311,7 +308,7 @@ class Jobs extends Component {
             <h1 className="type-of-emp-heading">Salary Range</h1>
             <ul>
               {salaryRangesList.map(eachRange => (
-                <SalaryRange
+                <SalaryRangeItem
                   key={eachRange.salaryRangeId}
                   id={eachRange.salaryRangeId}
                   salary={eachRange.label}

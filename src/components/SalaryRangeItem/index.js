@@ -1,6 +1,6 @@
 import './index.css'
 
-const SalaryRange = props => {
+const SalaryRangeItem = props => {
   const {salary, id, changeSalaryRange} = props
 
   const onRadioChange = () => {
@@ -22,4 +22,4 @@ const SalaryRange = props => {
   )
 }
 
-export default SalaryRange
+export default SalaryRangeItem

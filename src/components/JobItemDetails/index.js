@@ -89,8 +89,7 @@ class JobItemDetails extends Component {
         apiStatus: apiStatusConstants.success,
         skills: skillsData,
       })
-    }
-    if (response.status === 404) {
+    } else {
       this.setState({
         apiStatus: apiStatusConstants.failure,
       })

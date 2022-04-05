@@ -1,6 +1,6 @@
 import './index.css'
 
-const FilterGroup = props => {
+const EmploymentTypeItem = props => {
   const {name, id, changeEmpType} = props
 
   const onClickAddOrRemoveCheckbox = () => {
@@ -21,4 +21,4 @@ const FilterGroup = props => {
   )
 }
 
-export default FilterGroup
+export default EmploymentTypeItem
