@@ -104,7 +104,6 @@ class JobItemDetails extends Component {
       employmentType,
       title,
       rating,
-      id,
       jobDescription,
       lifeDescription,
       location,
@@ -207,7 +206,11 @@ class JobItemDetails extends Component {
       <p className="products-failure-description">
         We cannot seem to find the page you are looking for.
       </p>
-      <button onClick={this.onClickRetry} className="retry-button">
+      <button
+        type="button"
+        onClick={this.onClickRetry}
+        className="retry-button"
+      >
         Retry
       </button>
     </div>

@@ -151,7 +151,7 @@ class Jobs extends Component {
     const {name, profileImage, shortBio} = profileDetails
     return (
       <div className="profile-bg">
-        <img src={profileImage} />
+        <img alt="profile" src={profileImage} />
         <p>{name}</p>
         <p>{shortBio}</p>
       </div>
@@ -162,7 +162,7 @@ class Jobs extends Component {
     this.setState({searchInput: event.target.value})
   }
 
-  onEnterSearchInput = event => {
+  onEnterSearchInput = () => {
     this.getJobsList()
   }
 
@@ -184,6 +184,7 @@ class Jobs extends Component {
             onClick={this.onEnterSearchInput}
             className="search-button"
             testid="searchButton"
+            type="button"
           >
             <BsSearch className="search-icon" />
           </button>
@@ -203,7 +204,11 @@ class Jobs extends Component {
 
   profileFailureView = () => (
     <div className="products-error-view-container">
-      <button onClick={this.renderProfileDetailsView} className="retry-button">
+      <button
+        type="button"
+        onClick={this.renderProfileDetailsView}
+        className="retry-button"
+      >
         Retry
       </button>
     </div>
@@ -222,7 +227,7 @@ class Jobs extends Component {
       <p className="products-failure-description">
         We cannot seem to find the page you are looking for.
       </p>
-      <button onClick={this.getJobsList} className="retry-button">
+      <button type="button" onClick={this.getJobsList} className="retry-button">
         Retry
       </button>
     </div>
@@ -284,8 +289,6 @@ class Jobs extends Component {
   }
 
   render() {
-    const {searchInput, activeEmployementType, activeSalaryRange} = this.state
-
     return (
       <>
         <Header />
